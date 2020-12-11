@@ -1,6 +1,6 @@
 /* @jsxImportSource @emotion/react */
-import { jsx, css } from '@emotion/react/macro' // eslint-disable-line @typescript-eslint/no-unused-vars
-import { ButtonHTMLAttributes } from 'react'
+import { jsx, css } from "@emotion/react/macro"; // eslint-disable-line @typescript-eslint/no-unused-vars
+import { ButtonHTMLAttributes } from "react";
 
 export const ActionButton: React.FC<
   ButtonHTMLAttributes<HTMLButtonElement>
@@ -14,7 +14,7 @@ export const ActionButton: React.FC<
       bottom: 0;
       box-sizing: border-box;
       color: white;
-      font-family: 'Rye', cursive;
+      font-family: "Rye", cursive;
       font-size: 1.5rem;
       line-height: 1.5rem;
       padding: 1rem;
@@ -32,4 +32,4 @@ export const ActionButton: React.FC<
   >
     {children}
   </button>
-)
+);

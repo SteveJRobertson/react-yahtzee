@@ -1,8 +1,8 @@
 export const toCamelCase = (string: string): string => {
   const converted = string
-    .split(' ')
+    .split(" ")
     .map((fragment) => fragment.slice(0, 1).toUpperCase() + fragment.slice(1))
-    .join('')
+    .join("");
 
-  return converted.slice(0, 1).toLowerCase() + converted.slice(1)
-}
+  return converted.slice(0, 1).toLowerCase() + converted.slice(1);
+};

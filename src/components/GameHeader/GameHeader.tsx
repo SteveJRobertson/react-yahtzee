@@ -1,8 +1,8 @@
 /* @jsxImportSource @emotion/react */
-import { jsx, css } from '@emotion/react/macro' // eslint-disable-line @typescript-eslint/no-unused-vars
+import { jsx, css } from "@emotion/react/macro"; // eslint-disable-line @typescript-eslint/no-unused-vars
 
 interface GameHeaderProps {
-  totalScore: number
+  totalScore: number;
 }
 
 export const GameHeader: React.FC<GameHeaderProps> = ({ totalScore }) => (
@@ -13,7 +13,7 @@ export const GameHeader: React.FC<GameHeaderProps> = ({ totalScore }) => (
       box-shadow: 0 0.5vh 2vh rgba(0, 0, 0, 0.25);
       color: white;
       display: flex;
-      font-family: 'Lato', sans-serif;
+      font-family: "Lato", sans-serif;
       font-size: 1.25rem;
       height: 1.5rem;
       justify-content: space-between;
@@ -24,4 +24,4 @@ export const GameHeader: React.FC<GameHeaderProps> = ({ totalScore }) => (
   >
     <span>Score: {totalScore}</span>
   </header>
-)
+);

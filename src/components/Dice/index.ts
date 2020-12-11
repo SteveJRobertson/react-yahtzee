@@ -1,1 +1,1 @@
-export * from './Dice'
+export * from "./Dice";

@@ -1,6 +1,6 @@
-import { HTMLAttributes } from 'react'
+import { HTMLAttributes } from "react";
 /* @jsxImportSource @emotion/react */
-import { jsx, css } from '@emotion/react/macro' // eslint-disable-line @typescript-eslint/no-unused-vars
+import { jsx, css } from "@emotion/react/macro"; // eslint-disable-line @typescript-eslint/no-unused-vars
 
 export const ButtonGrid: React.FC<HTMLAttributes<HTMLDivElement>> = ({
   children,
@@ -23,4 +23,4 @@ export const ButtonGrid: React.FC<HTMLAttributes<HTMLDivElement>> = ({
       {children}
     </div>
   </div>
-)
+);

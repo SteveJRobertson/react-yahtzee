@@ -1,5 +1,5 @@
 /* @jsxImportSource @emotion/react */
-import { jsx, css } from '@emotion/react/macro' // eslint-disable-line @typescript-eslint/no-unused-vars
+import { jsx, css } from "@emotion/react/macro"; // eslint-disable-line @typescript-eslint/no-unused-vars
 
 export const Dice = ({ children }: { children: React.ReactNode }) => (
   <div
@@ -20,4 +20,4 @@ export const Dice = ({ children }: { children: React.ReactNode }) => (
       {children}
     </div>
   </div>
-)
+);
