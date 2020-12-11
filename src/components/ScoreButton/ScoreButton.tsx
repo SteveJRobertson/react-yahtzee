@@ -1,11 +1,11 @@
-import { HTMLAttributes } from 'react'
+import { HTMLAttributes } from "react";
 /* @jsxImportSource @emotion/react */
-import { jsx, css } from '@emotion/react/macro' // eslint-disable-line @typescript-eslint/no-unused-vars
+import { jsx, css } from "@emotion/react/macro"; // eslint-disable-line @typescript-eslint/no-unused-vars
 
 interface ScoreButtonProps {
-  score?: number | null
-  name?: string
-  longText?: boolean
+  score?: number | null;
+  name?: string;
+  longText?: boolean;
 }
 
 export const ScoreButton: React.FC<
@@ -20,7 +20,7 @@ export const ScoreButton: React.FC<
       box-sizing: border-box;
       color: white;
       display: flex;
-      font-family: 'Rye', cursive;
+      font-family: "Rye", cursive;
       justify-content: space-between;
       text-align: left;
       text-transform: uppercase;
@@ -39,7 +39,7 @@ export const ScoreButton: React.FC<
     <span
       css={css`
         flex: 1;
-        font-size: ${longText ? '2.25vh' : '3vh'};
+        font-size: ${longText ? "2.25vh" : "3vh"};
         padding-right: 3vw;
       `}
     >
@@ -63,4 +63,4 @@ export const ScoreButton: React.FC<
       </span>
     ) : null}
   </button>
-)
+);
