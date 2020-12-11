@@ -9,38 +9,38 @@ export type DieState = {
 export type DiceState = [DieState, DieState, DieState, DieState, DieState];
 
 export type UpperScoreCategory = [
-  'aces',
-  'twos',
-  'threes',
-  'fours',
-  'fives',
-  'sixes',
+  "aces",
+  "twos",
+  "threes",
+  "fours",
+  "fives",
+  "sixes"
 ];
 
 export type LowerScoreCategory = [
-  'threeOfAKind',
-  'fourOfAKind',
-  'fullHouse',
-  'smallStraight',
-  'largeStraight',
-  'chance',
-  'yahtzee',
+  "threeOfAKind",
+  "fourOfAKind",
+  "fullHouse",
+  "smallStraight",
+  "largeStraight",
+  "chance",
+  "yahtzee"
 ];
 
 export type ScoreCategory = [
-  'aces',
-  'twos',
-  'threes',
-  'fours',
-  'fives',
-  'sixes',
-  'threeOfAKind',
-  'fourOfAKind',
-  'fullHouse',
-  'smallStraight',
-  'largeStraight',
-  'chance',
-  'yahtzee',
+  "aces",
+  "twos",
+  "threes",
+  "fours",
+  "fives",
+  "sixes",
+  "threeOfAKind",
+  "fourOfAKind",
+  "fullHouse",
+  "smallStraight",
+  "largeStraight",
+  "chance",
+  "yahtzee"
 ];
 
 export type Scores = Map<ScoreCategory, number | null>;

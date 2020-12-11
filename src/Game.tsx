@@ -1,23 +1,23 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 /* @jsxImportSource @emotion/react */
-import { jsx, css } from '@emotion/react/macro'; // eslint-disable-line @typescript-eslint/no-unused-vars
-import { nanoid } from 'nanoid';
+import { jsx, css } from "@emotion/react/macro"; // eslint-disable-line @typescript-eslint/no-unused-vars
+import { nanoid } from "nanoid";
 import {
   ActionButton,
   ButtonGrid,
   Dice,
   GameHeader,
   ScoreButton,
-} from './components';
+} from "./components";
 import {
   CATEGORIES,
   ROLLS,
   TEXT_NEXT_ROUND,
   TEXT_ROLL_DICE,
   TEXT_START_GAME,
-} from './constants';
-import { DiceNumbers, DiceState, Scores, ScoreCategory } from './types';
-import { toCamelCase } from './util';
+} from "./constants";
+import { DiceNumbers, DiceState, Scores, ScoreCategory } from "./types";
+import { toCamelCase } from "./util";
 
 const diceIds = [nanoid(), nanoid(), nanoid(), nanoid(), nanoid()];
 const defaultDiceState: DiceState = [
@@ -30,7 +30,7 @@ const defaultDiceState: DiceState = [
 
 const Game = () => {
   const [actionButtonText, setActionButtonText] = useState<string>(
-    TEXT_START_GAME,
+    TEXT_START_GAME
   );
   const [gameStarted, setGameStarted] = useState<boolean>(false);
   const [roundStarted, setRoundStarted] = useState<boolean>(false);
@@ -86,7 +86,7 @@ const Game = () => {
         >
           {name}
         </ScoreButton>
-      ),
+      )
     );
 
   return (
@@ -96,7 +96,7 @@ const Game = () => {
           background-color: SeaGreen;
           color: white;
           display: flex;
-          font-family: 'Lato', sans-serif;
+          font-family: "Lato", sans-serif;
           height: calc(100vh - 3.5rem);
           width: 100%;
         `}
