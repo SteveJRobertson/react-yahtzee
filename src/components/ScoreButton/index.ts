@@ -1,1 +1,1 @@
-export * from './ScoreButton'
+export * from "./ScoreButton";
