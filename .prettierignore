@@ -4,4 +4,5 @@ build
 coverage
 node_modules
 **/*.{ico,png,jpg,svg,txt}
+commitlint.config.js
 tsconfig.json
