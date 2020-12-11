@@ -1,12 +1,12 @@
-export type DiceNumbers = [number, number, number, number, number]
+export type DiceNumbers = [number, number, number, number, number];
 
 export type DieState = {
-  id: string
-  hold: boolean
-  score: number
-}
+  id: string;
+  hold: boolean;
+  score: number;
+};
 
-export type DiceState = [DieState, DieState, DieState, DieState, DieState]
+export type DiceState = [DieState, DieState, DieState, DieState, DieState];
 
 export type UpperScoreCategory = [
   'aces',
@@ -14,8 +14,8 @@ export type UpperScoreCategory = [
   'threes',
   'fours',
   'fives',
-  'sixes'
-]
+  'sixes',
+];
 
 export type LowerScoreCategory = [
   'threeOfAKind',
@@ -24,8 +24,8 @@ export type LowerScoreCategory = [
   'smallStraight',
   'largeStraight',
   'chance',
-  'yahtzee'
-]
+  'yahtzee',
+];
 
 export type ScoreCategory = [
   'aces',
@@ -40,7 +40,7 @@ export type ScoreCategory = [
   'smallStraight',
   'largeStraight',
   'chance',
-  'yahtzee'
-]
+  'yahtzee',
+];
 
-export type Scores = Map<ScoreCategory, number | null>
+export type Scores = Map<ScoreCategory, number | null>;

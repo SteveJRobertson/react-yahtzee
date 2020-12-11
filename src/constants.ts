@@ -1,4 +1,4 @@
-import { DiceNumbers } from './types'
+import { DiceNumbers } from './types';
 import {
   getAces,
   getTwos,
@@ -13,25 +13,25 @@ import {
   getLargeStraight,
   getChance,
   getYahtzee,
-} from './util'
+} from './util';
 
-export const ROLLS = 3
-export const TEXT_START_GAME = 'Start'
-export const TEXT_ROLL_DICE = 'Roll'
-export const TEXT_NEXT_ROUND = 'Next Round'
+export const ROLLS = 3;
+export const TEXT_START_GAME = 'Start';
+export const TEXT_ROLL_DICE = 'Roll';
+export const TEXT_NEXT_ROUND = 'Next Round';
 export const CATEGORIES: {
   upper: {
-    id: string
-    name: string
-    calculator?: (arg0: DiceNumbers) => number
-    longText?: boolean
-  }[]
+    id: string;
+    name: string;
+    calculator?: (arg0: DiceNumbers) => number;
+    longText?: boolean;
+  }[];
   lower: {
-    id: string
-    name: string
-    calculator?: (arg0: DiceNumbers) => number
-    longText?: boolean
-  }[]
+    id: string;
+    name: string;
+    calculator?: (arg0: DiceNumbers) => number;
+    longText?: boolean;
+  }[];
 } = {
   upper: [
     { id: 'aces', name: 'Aces', calculator: getAces },
@@ -76,6 +76,6 @@ export const CATEGORIES: {
     { id: 'chance', name: 'Chance', calculator: getChance, longText: true },
     { id: 'yahtzee', name: 'Yahtzee', calculator: getYahtzee, longText: true },
   ],
-}
+};
 
-export const NUM_CATEGORIES = CATEGORIES.upper.length + CATEGORIES.lower.length
+export const NUM_CATEGORIES = CATEGORIES.upper.length + CATEGORIES.lower.length;
