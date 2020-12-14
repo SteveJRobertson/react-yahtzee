@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/react-yahtzee/static/css/main.4a4137e4.chunk.css",
+    "main.js": "/react-yahtzee/static/js/main.22fda5a7.chunk.js",
+    "main.js.map": "/react-yahtzee/static/js/main.22fda5a7.chunk.js.map",
+    "runtime-main.js": "/react-yahtzee/static/js/runtime-main.3faa9a97.js",
+    "runtime-main.js.map": "/react-yahtzee/static/js/runtime-main.3faa9a97.js.map",
+    "static/js/2.5f8c4ae8.chunk.js": "/react-yahtzee/static/js/2.5f8c4ae8.chunk.js",
+    "static/js/2.5f8c4ae8.chunk.js.map": "/react-yahtzee/static/js/2.5f8c4ae8.chunk.js.map",
+    "static/js/3.14da0af4.chunk.js": "/react-yahtzee/static/js/3.14da0af4.chunk.js",
+    "static/js/3.14da0af4.chunk.js.map": "/react-yahtzee/static/js/3.14da0af4.chunk.js.map",
+    "index.html": "/react-yahtzee/index.html",
+    "static/css/main.4a4137e4.chunk.css.map": "/react-yahtzee/static/css/main.4a4137e4.chunk.css.map",
+    "static/js/2.5f8c4ae8.chunk.js.LICENSE.txt": "/react-yahtzee/static/js/2.5f8c4ae8.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.3faa9a97.js",
+    "static/js/2.5f8c4ae8.chunk.js",
+    "static/css/main.4a4137e4.chunk.css",
+    "static/js/main.22fda5a7.chunk.js"
+  ]
+}
