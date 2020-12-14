@@ -8,7 +8,9 @@ jobs:
   build:
     filters:
       branches:
-        ignore: ["main", "gh-pages"]
+        ignore: 
+          -main
+          -gh-pages
 
     environment:
       CC_TEST_REPORTER_ID: "6dbf1df2457214d9a18c1b22ea31538192eec2582b734807fca4da426358c0d2"
@@ -62,7 +64,8 @@ jobs:
   build-deploy:
     filters:
       branches:
-        only: main
+        only:
+          - main
 
     environment:
       CC_TEST_REPORTER_ID: "6dbf1df2457214d9a18c1b22ea31538192eec2582b734807fca4da426358c0d2"
