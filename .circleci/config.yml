@@ -54,6 +54,12 @@ jobs:
           command: |
             curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
             chmod +x ./cc-test-reporter
+  test:
+    environment:
+      CC_TEST_REPORTER_ID: "6dbf1df2457214d9a18c1b22ea31538192eec2582b734807fca4da426358c0d2"
+      
+    docker:
+      - image: circleci/node:12.6.0
 
       - run:
           name: Run tests
