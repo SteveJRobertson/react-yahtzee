@@ -91,7 +91,9 @@ workflows:
       - prepare:
           filters:
             branches:
-              ignore: gh-pages
+              ignore:
+                - gh-pages
+                - main
       - check:
           requires:
             - prepare
