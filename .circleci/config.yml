@@ -3,7 +3,7 @@ defaults: &defaults
   docker:
       - image: circleci/node:12.6.0
   environment:
-      CC_TEST_REPORTER_ID: "6dbf1df2457214d9a18c1b22ea31538192eec2582b734807fca4da426358c0d2"  
+      CC_TEST_REPORTER_ID: "6dbf1df2457214d9a18c1b22ea31538192eec2582b734807fca4da426358c0d2"
 
 version: 2.1
 
