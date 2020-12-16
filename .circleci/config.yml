@@ -74,7 +74,7 @@ jobs:
           at: .
       - add_ssh_keys:
           fingerprints:
-            - "f8:85:da:4f:29:fa:f8:03:59:5c:99:52:0c:57:59:52"
+            - "15:23:e4:10:ce:53:f9:4f:b3:ce:5b:b0:48:72:74:14"
       - run:  
           name: Configure Git credentials
           command: |
