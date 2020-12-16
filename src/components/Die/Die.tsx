@@ -1,7 +1,11 @@
 /* @jsxImportSource @emotion/react */
-import { jsx, css } from "@emotion/react/macro"; // eslint-disable-line @typescript-eslint/no-unused-vars
+import { jsx, css } from '@emotion/react/macro' // eslint-disable-line @typescript-eslint/no-unused-vars
 
-export const Die = ({ children }: { children: React.ReactNode }) => (
+interface DieProps {
+  width: number
+}
+
+export const Die: React.FC<DieProps> = ({ width }) => (
   <div
     css={css`
       align-items: center;
@@ -11,8 +15,8 @@ export const Die = ({ children }: { children: React.ReactNode }) => (
   >
     <div
       css={css`
-        perspective: 1200px;
-        perspective-origin: 50% 100px;
+        perspective: ${width * 12}px;
+        perspective-origin: 50% ${width};
       `}
     >
       <div
@@ -77,4 +81,4 @@ export const Die = ({ children }: { children: React.ReactNode }) => (
       </div>
     </div>
   </div>
-);
+)
