@@ -72,6 +72,9 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
+      - add_ssh_keys:
+          fingerprints:
+            - "eb:90:38:66:66:37:f4:cd:02:df:3a:eb:87:66:81:92"
       - run:  
           name: Configure Git credentials
           command: |
