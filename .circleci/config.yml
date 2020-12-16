@@ -92,15 +92,15 @@ workflows:
       - check:
           requires:
             - prepare
-      - build:
-          requires:
-            - check
       - test-jest:
           requires:
-            - build
+            - check
+      - build:
+          requires:
+            - test-jest
       - deploy-gh-pages:
           filters:
             branches:
               only: main
           requires:
-            - test-jest
+            - build
