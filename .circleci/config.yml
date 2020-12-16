@@ -31,6 +31,8 @@ jobs:
             - node_modules
   build:
     <<: *defaults
+    environment:
+      CI: false
     steps:
       - checkout
       - attach_workspace:
