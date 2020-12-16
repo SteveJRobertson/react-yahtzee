@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react'
+import { createContext, useContext } from "react";
 // import { DiceState, Score, ScoreType } from "./types";
 
 interface GameContextProps {
@@ -14,8 +14,8 @@ interface GameContextProps {
   // upperScoreBonus?: number;
   // onHold?: (arg0: string) => any;
   // onScored?: () => any;
-  diceWidth?: number
+  diceWidth?: number;
 }
 
-export const GameCtx = createContext<GameContextProps>({})
-export const useGame = () => useContext(GameCtx)
+export const GameCtx = createContext<GameContextProps>({});
+export const useGame = () => useContext(GameCtx);

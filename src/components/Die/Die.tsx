@@ -1,9 +1,9 @@
 /* @jsxImportSource @emotion/react */
-import { jsx, css } from '@emotion/react/macro' // eslint-disable-line @typescript-eslint/no-unused-vars
-import { HTMLAttributes } from 'react'
+import { jsx, css } from "@emotion/react/macro"; // eslint-disable-line @typescript-eslint/no-unused-vars
+import { HTMLAttributes } from "react";
 
 interface DotProps {
-  dieWidth: number
+  dieWidth: number;
 }
 
 const Dot: React.FC<DotProps> = ({ dieWidth }) => {
@@ -19,12 +19,12 @@ const Dot: React.FC<DotProps> = ({ dieWidth }) => {
           calc(${dieWidth}px / 12) rgba(0, 0, 0, 0.2);
       `}
     />
-  )
-}
+  );
+};
 
 interface FaceProps {
-  dieWidth: number
-  position: string
+  dieWidth: number;
+  position: string;
 }
 
 const Face: React.FC<FaceProps & HTMLAttributes<HTMLDivElement>> = ({
@@ -45,9 +45,9 @@ const Face: React.FC<FaceProps & HTMLAttributes<HTMLDivElement>> = ({
   >
     {children}
   </div>
-)
+);
 interface DieProps {
-  width: number
+  width: number;
 }
 
 export const Die: React.FC<DieProps> = ({ width }) => (
@@ -126,4 +126,4 @@ export const Die: React.FC<DieProps> = ({ width }) => (
       </div>
     </div>
   </div>
-)
+);

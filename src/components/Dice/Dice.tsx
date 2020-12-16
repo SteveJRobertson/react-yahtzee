@@ -1,5 +1,5 @@
 /* @jsxImportSource @emotion/react */
-import { jsx, css } from '@emotion/react/macro' // eslint-disable-line @typescript-eslint/no-unused-vars
+import { jsx, css } from "@emotion/react/macro"; // eslint-disable-line @typescript-eslint/no-unused-vars
 import {
   forwardRef,
   ForwardRefExoticComponent,
@@ -7,32 +7,34 @@ import {
   RefAttributes,
   useEffect,
   useState,
-} from 'react'
-import { NUM_DICE } from '../../constants'
-import { Die } from '../Die'
+} from "react";
+import { NUM_DICE } from "../../constants";
+import { Die } from "../Die";
 
 interface DiceProps {
-  width: number
+  width: number;
 }
 
 export const Dice: ForwardRefExoticComponent<
   DiceProps & RefAttributes<HTMLDivElement>
 > = forwardRef(({ width }, ref) => {
-  const [dieWidth, setDieWidth] = useState<number>(Math.floor(width / NUM_DICE))
+  const [dieWidth, setDieWidth] = useState<number>(
+    Math.floor(width / NUM_DICE)
+  );
 
   useEffect(() => {
-    setDieWidth(Math.floor(width / NUM_DICE))
-  }, [width])
+    setDieWidth(Math.floor(width / NUM_DICE));
+  }, [width]);
 
   const renderDice = () => {
-    let Dice: ReactElement[] = []
+    let Dice: ReactElement[] = [];
 
     for (let i = 0; i < NUM_DICE; i++) {
-      Dice = [...Dice, <Die width={dieWidth} />]
+      Dice = [...Dice, <Die width={dieWidth} />];
     }
 
-    return Dice
-  }
+    return Dice;
+  };
 
   return (
     <div
@@ -55,5 +57,5 @@ export const Dice: ForwardRefExoticComponent<
         {renderDice()}
       </div>
     </div>
-  )
-})
+  );
+});
