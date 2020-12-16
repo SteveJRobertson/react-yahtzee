@@ -20,7 +20,7 @@ jobs:
             - v1-dependencies-
       - run:
           name: Install dependencies
-          command: npm ci
+          command: npm install
       - save_cache:
           paths:
             - node_modules
