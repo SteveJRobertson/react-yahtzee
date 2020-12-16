@@ -74,7 +74,7 @@ jobs:
           at: .
       - add_ssh_keys:
           fingerprints:
-            - "eb:90:38:66:66:37:f4:cd:02:df:3a:eb:87:66:81:92"
+            - "f8:85:da:4f:29:fa:f8:03:59:5c:99:52:0c:57:59:52"
       - run:  
           name: Configure Git credentials
           command: |
@@ -101,9 +101,12 @@ workflows:
       - build:
           requires:
             - test-jest
-      - deploy-gh-pages:
+  deploy:
+    jobs:
+      - prepare:
           filters:
             branches:
               only: main
+      - deploy-gh-pages:
           requires:
-            - build
+            - prepare
