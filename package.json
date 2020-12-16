@@ -38,7 +38,7 @@
     "check": "prettier --check '**/*.{js,ts,tsx,json,yml,css,md}'",
     "format": "prettier --write '**/*.{js,ts,tsx,json,yml,css,md}' && eslint './{public,src}/*.{js,jsx,ts,tsx}' --fix",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d -m \"[skip ci]: Deploy to GitHub Pages\" build"
   },
   "eslintConfig": {
     "extends": [
