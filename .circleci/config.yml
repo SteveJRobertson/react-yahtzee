@@ -66,6 +66,8 @@ jobs:
             ./cc-test-reporter after-build --exit-code $?
   deploy-gh-pages:
     <<: *defaults
+    environment:
+      CI: false
     steps:
       - checkout
       - attach_workspace:
