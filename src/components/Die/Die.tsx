@@ -1,15 +1,45 @@
 /* @jsxImportSource @emotion/react */
-import { jsx, css } from "@emotion/react/macro"; // eslint-disable-line @typescript-eslint/no-unused-vars
-import { HTMLAttributes } from "react";
+import { jsx, css, keyframes } from "@emotion/react/macro"; // eslint-disable-line @typescript-eslint/no-unused-vars
+import { HTMLAttributes, useEffect, useState } from "react";
+import { MAX, MIN, POSITIONS } from "../../constants";
+import { useGame } from "../../GameCtx";
+import { getRandomNumber } from "../../util";
+
+// const spin = keyframes`
+//   from { transform: rotateX(0) rotateY(0); }
+//   to { transform: rotateX(360deg) rotateY(360deg); }
+// `;
+
+// const spinPartial = css`
+//   animation: ${spin} 2s infinite linear;
+// `;
+
+// const spinBackwards = keyframes`
+//   from { transform: rotateX(0) rotateZ(0); }
+//   to { transform: rotateX(-360deg) rotateZ(-360deg); }
+// `;
+
+// const spinBackwardsPartial = css`
+//   animation: ${spinBackwards} 2s infinite linear;
+//   transform: rotateX(-45deg) rotateZ(-45deg);
+// `;
 
 interface DotProps {
+  alignSelf?: string;
   dieWidth: number;
 }
 
-const Dot: React.FC<DotProps> = ({ dieWidth }) => {
+const Dot: React.FC<DotProps> = ({ alignSelf, dieWidth }) => {
+  const alignSelfPartial = alignSelf
+    ? css`
+        align-self: ${alignSelf};
+      `
+    : null;
+
   return (
     <span
       css={css`
+        ${alignSelfPartial}
         display: block;
         width: calc(${dieWidth}px * 0.2);
         height: calc(${dieWidth}px * 0.2);
@@ -24,106 +54,221 @@ const Dot: React.FC<DotProps> = ({ dieWidth }) => {
 
 interface FaceProps {
   dieWidth: number;
+  held?: boolean;
   position: string;
 }
 
 const Face: React.FC<FaceProps & HTMLAttributes<HTMLDivElement>> = ({
   children,
   dieWidth,
+  held,
   position,
+}) => {
+  const spaceBetweenPartial = css`
+    justify-content: space-between;
+  `;
+  let facePartial;
+
+  switch (position) {
+    case "first":
+      facePartial = css`
+        align-items: center;
+        justify-content: center;
+        transform: translateZ(calc(${dieWidth}px / 2));
+      `;
+      break;
+    case "second":
+      facePartial = css`
+        ${spaceBetweenPartial}
+        transform: rotateX(-180deg) translateZ(calc(${dieWidth}px / 2));
+      `;
+      break;
+    case "third":
+      facePartial = css`
+        ${spaceBetweenPartial}
+        transform: rotateY(90deg) translateZ(calc(${dieWidth}px / 2));
+      `;
+      break;
+    case "fourth":
+      facePartial = css`
+        ${spaceBetweenPartial}
+        transform: rotateY(-90deg) translateZ(calc(${dieWidth}px / 2));
+      `;
+      break;
+    case "fifth":
+      facePartial = css`
+        ${spaceBetweenPartial}
+        transform: rotateX(90deg) translateZ(calc(${dieWidth}px / 2));
+      `;
+      break;
+    case "sixth":
+      facePartial = css`
+        ${spaceBetweenPartial}
+        transform: rotateX(-90deg) translateZ(calc(${dieWidth}px / 2));
+      `;
+      break;
+    default:
+      break;
+  }
+
+  return (
+    <div
+      css={css`
+        display: flex;
+        box-sizing: border-box;
+        padding: 15%;
+        background-color: ${held
+          ? "rgba(139, 0, 0, 0.85)"
+          : "rgba(220, 20, 60, 0.85)"};
+        width: ${dieWidth}px;
+        height: ${dieWidth}px;
+        position: absolute;
+        ${facePartial}
+      `}
+    >
+      {children}
+    </div>
+  );
+};
+
+interface DieColumnProps {
+  dieWidth: number;
+  justifyContent?: string;
+}
+
+const DieColumn: React.FC<DieColumnProps & HTMLAttributes<HTMLDivElement>> = ({
+  children,
+  dieWidth,
+  justifyContent = "space-between",
 }) => (
   <div
     css={css`
       display: flex;
-      box-sizing: border-box;
-      padding: 15%;
-      background-color: rgba(220, 20, 60, 0.85);
-      width: ${dieWidth}px;
-      height: ${dieWidth}px;
-      position: absolute;
+      flex-direction: column;
+      justify-content: ${justifyContent || "space-between"};
+      width: calc(${dieWidth}px * 0.21);
+      height: calc(${dieWidth}px * 0.7);
     `}
   >
     {children}
   </div>
 );
+
 interface DieProps {
+  id: string;
+  number?: number;
+  rotation: "forwards" | "backwards";
   width: number;
 }
 
-export const Die: React.FC<DieProps> = ({ width }) => (
-  <div
-    css={css`
-      align-items: center;
-      display: flex;
-      justify-content: center;
-    `}
-  >
+export const Die: React.FC<DieProps> = ({ id, number, rotation, width }) => {
+  const { diceState, roundStarted, onHold } = useGame();
+
+  const isHeld = diceState
+    ? diceState.find((dieState) => dieState.id === id)?.hold
+    : false;
+
+  const [held, setHeld] = useState<boolean>(false);
+  const [xPos, setXPos] = useState<number>(0);
+  const [yPos, setYPos] = useState<number>(0);
+
+  useEffect(() => {
+    setHeld(!!isHeld);
+  }, [isHeld]);
+
+  useEffect(() => {
+    if (!number) return;
+
+    const spins = getRandomNumber(MAX, MIN) - 1;
+    const { x, y } = POSITIONS[number - 1][spins];
+
+    setXPos(x + 1800);
+    setYPos(y + 1800);
+  }, [number]);
+
+  const handleClick = () => {
+    if (roundStarted && onHold) onHold(id);
+  };
+
+  return (
     <div
       css={css`
-        perspective: ${width * 12}px;
-        perspective-origin: 50% ${width};
+        align-items: center;
+        display: flex;
+        justify-content: center;
       `}
+      onClick={handleClick}
     >
       <div
         css={css`
-          position: relative;
-          width: ${width}px;
-          height: ${width}px;
-          transform-style: preserve-3d;
+          perspective: ${width * 12}px;
+          perspective-origin: 50% ${width};
         `}
       >
-        <Face dieWidth={width} position="first">
-          <Dot dieWidth={width} />
-        </Face>
-        <div className="face second-face">
-          <span className="dot"></span>
-          <span className="dot"></span>
-        </div>
+        <div
+          css={css`
+            position: relative;
+            width: ${width}px;
+            height: ${width}px;
+            transform-style: preserve-3d;
+            transform: rotateX(${xPos}deg) rotateY(${yPos}deg);
+            transition: transform 2s;
+          `}
+        >
+          <Face dieWidth={width} held={held} position="first">
+            <Dot dieWidth={width} />
+          </Face>
 
-        <div className="face third-face">
-          <span className="dot"></span>
-          <span className="dot"></span>
-          <span className="dot"></span>
-        </div>
+          <Face dieWidth={width} held={held} position="second">
+            <Dot dieWidth={width} />
+            <Dot alignSelf="flex-end" dieWidth={width} />
+          </Face>
 
-        <div className="face fourth-face">
-          <div className="die-column">
-            <span className="dot"></span>
-            <span className="dot"></span>
-          </div>
-          <div className="die-column">
-            <span className="dot"></span>
-            <span className="dot"></span>
-          </div>
-        </div>
+          <Face dieWidth={width} held={held} position="third">
+            <Dot dieWidth={width} />
+            <Dot alignSelf="center" dieWidth={width} />
+            <Dot alignSelf="flex-end" dieWidth={width} />
+          </Face>
 
-        <div className="face fifth-face">
-          <div className="die-column">
-            <span className="dot"></span>
-            <span className="dot"></span>
-          </div>
-          <div className="die-column">
-            <span className="dot"></span>
-          </div>
-          <div className="die-column">
-            <span className="dot"></span>
-            <span className="dot"></span>
-          </div>
-        </div>
+          <Face dieWidth={width} held={held} position="fourth">
+            <DieColumn dieWidth={width}>
+              <Dot dieWidth={width} />
+              <Dot dieWidth={width} />
+            </DieColumn>
+            <DieColumn dieWidth={width}>
+              <Dot dieWidth={width} />
+              <Dot dieWidth={width} />
+            </DieColumn>
+          </Face>
 
-        <div className="face sixth-face">
-          <div className="die-column">
-            <span className="dot"></span>
-            <span className="dot"></span>
-            <span className="dot"></span>
-          </div>
-          <div className="die-column">
-            <span className="dot"></span>
-            <span className="dot"></span>
-            <span className="dot"></span>
-          </div>
+          <Face dieWidth={width} held={held} position="fifth">
+            <DieColumn dieWidth={width}>
+              <Dot dieWidth={width} />
+              <Dot dieWidth={width} />
+            </DieColumn>
+            <DieColumn dieWidth={width} justifyContent="center">
+              <Dot dieWidth={width} />
+            </DieColumn>
+            <DieColumn dieWidth={width}>
+              <Dot dieWidth={width} />
+              <Dot dieWidth={width} />
+            </DieColumn>
+          </Face>
+
+          <Face dieWidth={width} held={held} position="sixth">
+            <DieColumn dieWidth={width}>
+              <Dot dieWidth={width} />
+              <Dot dieWidth={width} />
+              <Dot dieWidth={width} />
+            </DieColumn>
+            <DieColumn dieWidth={width}>
+              <Dot dieWidth={width} />
+              <Dot dieWidth={width} />
+              <Dot dieWidth={width} />
+            </DieColumn>
+          </Face>
         </div>
       </div>
     </div>
-  </div>
-);
+  );
+};

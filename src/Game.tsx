@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 /* @jsxImportSource @emotion/react */
 import { jsx, css } from "@emotion/react/macro"; // eslint-disable-line @typescript-eslint/no-unused-vars
-// import { nanoid } from 'nanoid'
+import { nanoid } from "nanoid";
 import useResizeObserver from "use-resize-observer";
 import {
   ActionButton,
@@ -13,22 +13,26 @@ import {
 import {
   CATEGORIES,
   ROLLS,
+  MAX,
+  MIN,
   TEXT_NEXT_ROUND,
   TEXT_ROLL_DICE,
   TEXT_START_GAME,
 } from "./constants";
-// import { DiceNumbers, DiceState, Scores, ScoreCategory } from './types'
-import { toCamelCase } from "./util";
+import {
+  /* DiceNumbers,  */ DiceState /* , Scores, ScoreCategory */,
+} from "./types";
+import { getRandomNumber, toCamelCase } from "./util";
 import { GameCtx } from "./GameCtx";
 
-// const diceIds = [nanoid(), nanoid(), nanoid(), nanoid(), nanoid()]
-// const defaultDiceState: DiceState = [
-//   { id: diceIds[0], hold: false, score: 0 },
-//   { id: diceIds[1], hold: false, score: 0 },
-//   { id: diceIds[2], hold: false, score: 0 },
-//   { id: diceIds[3], hold: false, score: 0 },
-//   { id: diceIds[4], hold: false, score: 0 },
-// ]
+const diceIds = [nanoid(), nanoid(), nanoid(), nanoid(), nanoid()];
+const defaultDiceState: DiceState = [
+  { id: diceIds[0], hold: false, score: 0 },
+  { id: diceIds[1], hold: false, score: 0 },
+  { id: diceIds[2], hold: false, score: 0 },
+  { id: diceIds[3], hold: false, score: 0 },
+  { id: diceIds[4], hold: false, score: 0 },
+];
 
 const Game = () => {
   const [actionButtonText, setActionButtonText] = useState<string>(
@@ -36,8 +40,9 @@ const Game = () => {
   );
   const [gameStarted, setGameStarted] = useState<boolean>(false);
   const [roundStarted, setRoundStarted] = useState<boolean>(false);
+  const [rolling, setRolling] = useState<boolean>(false);
   const [roundComplete /* setRoundComplete */] = useState<boolean>(false);
-  // const [diceState, setDiceState] = useState<DiceState>(defaultDiceState);
+  const [diceState, setDiceState] = useState<DiceState>(defaultDiceState);
   const [rolls, setRolls] = useState<number>(0);
   // const [turn, setTurn] = useState<number>(0);
   // const [scored, setScored] = useState<boolean>(false);
@@ -49,6 +54,14 @@ const Game = () => {
   const { width: diceWidth = 1 } = useResizeObserver<HTMLDivElement>({
     ref: diceRef,
   });
+
+  useEffect(() => {
+    if (rolling) {
+      setTimeout(() => {
+        setRolling(false);
+      }, 2000);
+    }
+  }, [rolling]);
 
   const updateActionButton = () => {
     if (gameStarted) {
@@ -79,7 +92,51 @@ const Game = () => {
 
     if (!roundStarted) {
       setRoundStarted(true);
+      return;
     }
+
+    console.log("CLICK");
+
+    // Roll the dice
+    setRolling(true);
+    setDiceState(
+      diceState.map((dieState) => {
+        const { hold, score } = dieState;
+
+        if (hold) return dieState;
+
+        let rand: number;
+
+        do {
+          rand = getRandomNumber(MAX, MIN);
+
+          if (score === 0) break;
+        } while (rand === score);
+
+        return {
+          ...dieState,
+          score: rand,
+        };
+      }) as DiceState
+    );
+    setRolls(rolls - 1);
+  };
+
+  const handleHold = (dieId: string) => {
+    const dieStateToUpdate = diceState.find(({ id }) => id === dieId);
+    if (!dieStateToUpdate) return;
+
+    const updatedDiceState = diceState.map((dieState) => {
+      if (dieState.id !== dieId) return dieState;
+
+      return {
+        ...dieState,
+        hold: !dieState.hold,
+      };
+    }) as DiceState;
+
+    if (!updatedDiceState) return;
+    setDiceState(updatedDiceState);
   };
 
   const getScoreButtons = () =>
@@ -100,7 +157,10 @@ const Game = () => {
   return (
     <GameCtx.Provider
       value={{
+        diceState,
         diceWidth,
+        roundStarted,
+        onHold: handleHold,
       }}
     >
       <div
@@ -141,7 +201,12 @@ const Game = () => {
           </h1>
         )}
       </div>
-      <ActionButton onClick={handleClick}>{actionButtonText}</ActionButton>
+      <ActionButton
+        disabled={roundStarted && (rolling || rolls === 0)}
+        onClick={handleClick}
+      >
+        {actionButtonText}
+      </ActionButton>
     </GameCtx.Provider>
   );
 };

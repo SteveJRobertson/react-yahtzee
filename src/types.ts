@@ -1,3 +1,26 @@
+type Coordinates = {
+  x: number;
+  y: number;
+};
+
+type DiePosition = [
+  Coordinates,
+  Coordinates,
+  Coordinates,
+  Coordinates,
+  Coordinates,
+  Coordinates
+];
+
+export type DiePositions = [
+  DiePosition,
+  DiePosition,
+  DiePosition,
+  DiePosition,
+  DiePosition,
+  DiePosition
+];
+
 export type DiceNumbers = [number, number, number, number, number];
 
 export type DieState = {

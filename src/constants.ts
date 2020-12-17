@@ -1,4 +1,4 @@
-import { DiceNumbers } from "./types";
+import { DiceNumbers, DiePositions } from "./types";
 import {
   getAces,
   getTwos,
@@ -15,11 +15,65 @@ import {
   getYahtzee,
 } from "./util";
 
+export const MAX = 6;
+export const MIN = 1;
 export const NUM_DICE = 5;
 export const ROLLS = 3;
 export const TEXT_START_GAME = "Start";
 export const TEXT_ROLL_DICE = "Roll";
 export const TEXT_NEXT_ROUND = "Next Round";
+
+export const POSITIONS: DiePositions = [
+  [
+    { x: 180, y: 1620 },
+    { x: 540, y: 1260 },
+    { x: 900, y: 900 },
+    { x: 1260, y: 540 },
+    { x: 1620, y: 180 },
+    { x: 1980, y: 1980 },
+  ],
+  [
+    { x: 0, y: 1980 },
+    { x: 360, y: 1620 },
+    { x: 720, y: 1260 },
+    { x: 1080, y: 900 },
+    { x: 1440, y: 540 },
+    { x: 1800, y: 180 },
+  ],
+  [
+    { x: 180, y: 450 },
+    { x: 540, y: 810 },
+    { x: 900, y: 1170 },
+    { x: 1260, y: 1530 },
+    { x: 1620, y: 1890 },
+    { x: 1980, y: 90 },
+  ],
+  [
+    { x: 0, y: 90 },
+    { x: 360, y: 450 },
+    { x: 720, y: 810 },
+    { x: 1080, y: 1170 },
+    { x: 1440, y: 1530 },
+    { x: 1800, y: 1890 },
+  ],
+  [
+    { x: 270, y: 1710 },
+    { x: 630, y: 1350 },
+    { x: 990, y: 990 },
+    { x: 1350, y: 630 },
+    { x: 270, y: 1710 },
+    { x: 2070, y: 0 },
+  ],
+  [
+    { x: 90, y: 270 },
+    { x: 450, y: 630 },
+    { x: 810, y: 990 },
+    { x: 1170, y: 1350 },
+    { x: 1530, y: 1710 },
+    { x: 1890, y: 2070 },
+  ],
+];
+
 export const CATEGORIES: {
   upper: {
     id: string;
