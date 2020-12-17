@@ -4,9 +4,9 @@ import { ButtonHTMLAttributes } from "react";
 
 export const ActionButton: React.FC<
   ButtonHTMLAttributes<HTMLButtonElement>
-> = ({ children, onClick }) => (
+> = ({ children, ...buttonProps }) => (
   <button
-    onClick={onClick}
+    {...buttonProps}
     css={css`
       background: Crimson;
       border: none;
