@@ -18,10 +18,14 @@ import {
 export const MAX = 6;
 export const MIN = 1;
 export const NUM_DICE = 5;
+export const ROUNDS = 13;
 export const ROLLS = 3;
 export const TEXT_START_GAME = "Start";
 export const TEXT_ROLL_DICE = "Roll";
 export const TEXT_NEXT_ROUND = "Next Round";
+export const TEXT_NEW_GAME = "New Game";
+export const UPPER_BONUS_SCORE = 63;
+export const UPPER_BONUS = 35;
 
 export const POSITIONS: DiePositions = [
   [

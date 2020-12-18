@@ -2,7 +2,8 @@
 import { jsx, css, keyframes } from "@emotion/react/macro"; // eslint-disable-line @typescript-eslint/no-unused-vars
 import { HTMLAttributes, useEffect, useState } from "react";
 import { MAX, MIN, POSITIONS } from "../../constants";
-import { useGame } from "../../GameCtx";
+import { useGame } from "../../GameProvider";
+import { DieState } from "../../types";
 import { getRandomNumber } from "../../util";
 
 // const spin = keyframes`
@@ -162,10 +163,13 @@ interface DieProps {
 }
 
 export const Die: React.FC<DieProps> = ({ id, number, rotation, width }) => {
-  const { diceState, roundStarted, onHold } = useGame();
+  const {
+    state: { diceDisabled, dice },
+    toggleHoldDie: onHold,
+  } = useGame();
 
-  const isHeld = diceState
-    ? diceState.find((dieState) => dieState.id === id)?.hold
+  const isHeld = dice
+    ? dice.find((dieState: DieState) => dieState.id === id)?.hold
     : false;
 
   const [held, setHeld] = useState<boolean>(false);
@@ -187,7 +191,8 @@ export const Die: React.FC<DieProps> = ({ id, number, rotation, width }) => {
   }, [number]);
 
   const handleClick = () => {
-    if (roundStarted && onHold) onHold(id);
+    console.log(dice);
+    if (!diceDisabled && onHold) onHold(id);
   };
 
   return (

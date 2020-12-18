@@ -1,13 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import Game from "./Game";
+import { Game } from "./Game";
+import { GameProvider } from "./GameProvider";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Game />
+    <GameProvider>
+      <Game />
+    </GameProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
