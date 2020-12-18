@@ -18,6 +18,7 @@ import {
 export const MAX = 6;
 export const MIN = 1;
 export const NUM_DICE = 5;
+export const ROUNDS = 13;
 export const ROLLS = 3;
 export const TEXT_START_GAME = "Start";
 export const TEXT_ROLL_DICE = "Roll";

@@ -1,10 +1,10 @@
 /* @jsxImportSource @emotion/react */
-import { jsx, css, keyframes } from "@emotion/react/macro"; // eslint-disable-line @typescript-eslint/no-unused-vars
-import { HTMLAttributes, useEffect, useState } from "react";
-import { MAX, MIN, POSITIONS } from "../../constants";
-import { useGame } from "../../GameProvider";
-import { DieState } from "../../types";
-import { getRandomNumber } from "../../util";
+import { jsx, css, keyframes } from '@emotion/react/macro' // eslint-disable-line @typescript-eslint/no-unused-vars
+import { HTMLAttributes, useEffect, useState } from 'react'
+import { MAX, MIN, POSITIONS } from '../../constants'
+import { useGame } from '../../GameProvider'
+import { DieState } from '../../types'
+import { getRandomNumber } from '../../util'
 
 // const spin = keyframes`
 //   from { transform: rotateX(0) rotateY(0); }
@@ -26,8 +26,8 @@ import { getRandomNumber } from "../../util";
 // `;
 
 interface DotProps {
-  alignSelf?: string;
-  dieWidth: number;
+  alignSelf?: string
+  dieWidth: number
 }
 
 const Dot: React.FC<DotProps> = ({ alignSelf, dieWidth }) => {
@@ -35,7 +35,7 @@ const Dot: React.FC<DotProps> = ({ alignSelf, dieWidth }) => {
     ? css`
         align-self: ${alignSelf};
       `
-    : null;
+    : null
 
   return (
     <span
@@ -50,13 +50,13 @@ const Dot: React.FC<DotProps> = ({ alignSelf, dieWidth }) => {
           calc(${dieWidth}px / 12) rgba(0, 0, 0, 0.2);
       `}
     />
-  );
-};
+  )
+}
 
 interface FaceProps {
-  dieWidth: number;
-  held?: boolean;
-  position: string;
+  dieWidth: number
+  held?: boolean
+  position: string
 }
 
 const Face: React.FC<FaceProps & HTMLAttributes<HTMLDivElement>> = ({
@@ -67,49 +67,49 @@ const Face: React.FC<FaceProps & HTMLAttributes<HTMLDivElement>> = ({
 }) => {
   const spaceBetweenPartial = css`
     justify-content: space-between;
-  `;
-  let facePartial;
+  `
+  let facePartial
 
   switch (position) {
-    case "first":
+    case 'first':
       facePartial = css`
         align-items: center;
         justify-content: center;
         transform: translateZ(calc(${dieWidth}px / 2));
-      `;
-      break;
-    case "second":
+      `
+      break
+    case 'second':
       facePartial = css`
         ${spaceBetweenPartial}
         transform: rotateX(-180deg) translateZ(calc(${dieWidth}px / 2));
-      `;
-      break;
-    case "third":
+      `
+      break
+    case 'third':
       facePartial = css`
         ${spaceBetweenPartial}
         transform: rotateY(90deg) translateZ(calc(${dieWidth}px / 2));
-      `;
-      break;
-    case "fourth":
+      `
+      break
+    case 'fourth':
       facePartial = css`
         ${spaceBetweenPartial}
         transform: rotateY(-90deg) translateZ(calc(${dieWidth}px / 2));
-      `;
-      break;
-    case "fifth":
+      `
+      break
+    case 'fifth':
       facePartial = css`
         ${spaceBetweenPartial}
         transform: rotateX(90deg) translateZ(calc(${dieWidth}px / 2));
-      `;
-      break;
-    case "sixth":
+      `
+      break
+    case 'sixth':
       facePartial = css`
         ${spaceBetweenPartial}
         transform: rotateX(-90deg) translateZ(calc(${dieWidth}px / 2));
-      `;
-      break;
+      `
+      break
     default:
-      break;
+      break
   }
 
   return (
@@ -119,8 +119,8 @@ const Face: React.FC<FaceProps & HTMLAttributes<HTMLDivElement>> = ({
         box-sizing: border-box;
         padding: 15%;
         background-color: ${held
-          ? "rgba(139, 0, 0, 0.85)"
-          : "rgba(220, 20, 60, 0.85)"};
+          ? 'rgba(139, 0, 0, 0.85)'
+          : 'rgba(220, 20, 60, 0.85)'};
         width: ${dieWidth}px;
         height: ${dieWidth}px;
         position: absolute;
@@ -129,75 +129,75 @@ const Face: React.FC<FaceProps & HTMLAttributes<HTMLDivElement>> = ({
     >
       {children}
     </div>
-  );
-};
+  )
+}
 
 interface DieColumnProps {
-  dieWidth: number;
-  justifyContent?: string;
+  dieWidth: number
+  justifyContent?: string
 }
 
 const DieColumn: React.FC<DieColumnProps & HTMLAttributes<HTMLDivElement>> = ({
   children,
   dieWidth,
-  justifyContent = "space-between",
+  justifyContent = 'space-between',
 }) => (
   <div
     css={css`
       display: flex;
       flex-direction: column;
-      justify-content: ${justifyContent || "space-between"};
+      justify-content: ${justifyContent || 'space-between'};
       width: calc(${dieWidth}px * 0.21);
       height: calc(${dieWidth}px * 0.7);
     `}
   >
     {children}
   </div>
-);
+)
 
 interface DieProps {
-  id: string;
-  number?: number;
-  width: number;
+  id: string
+  number?: number
+  width: number
 }
 
 export const Die: React.FC<DieProps> = ({ id, number, width }) => {
   const {
     state: { diceDisabled, dice },
     toggleHoldDie,
-  } = useGame();
+  } = useGame()
 
   const isHeld = dice
     ? dice.find((dieState: DieState) => dieState.id === id)?.hold
-    : false;
+    : false
 
-  const [held, setHeld] = useState<boolean>(false);
-  const [xPos, setXPos] = useState<number>(0);
-  const [yPos, setYPos] = useState<number>(0);
-
-  useEffect(() => {
-    setHeld(!!isHeld);
-  }, [isHeld]);
+  const [held, setHeld] = useState<boolean>(false)
+  const [xPos, setXPos] = useState<number>(0)
+  const [yPos, setYPos] = useState<number>(0)
 
   useEffect(() => {
-    if (!number) return;
+    setHeld(!!isHeld)
+  }, [isHeld])
 
-    const spins = getRandomNumber(MAX, MIN) - 1;
-    const { x, y } = POSITIONS[number - 1][spins];
+  useEffect(() => {
+    if (!number) return
 
-    setXPos(x + 1800);
-    setYPos(y + 1800);
-  }, [number]);
+    const spins = getRandomNumber(MAX, MIN) - 1
+    const { x, y } = POSITIONS[number - 1][spins]
+
+    setXPos(x + 1800)
+    setYPos(y + 1800)
+  }, [number])
 
   const handleClick = () => {
-    toggleHoldDie(id);
-  };
+    toggleHoldDie(id)
+  }
 
   return (
     <div
       css={css`
         align-items: center;
-        cursor: ${diceDisabled ? "not-allowed" : "pointer"};
+        cursor: ${diceDisabled ? 'not-allowed' : 'pointer'};
         display: flex;
         justify-content: center;
       `}
@@ -274,5 +274,5 @@ export const Die: React.FC<DieProps> = ({ id, number, width }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

@@ -1,12 +1,12 @@
 /* @jsxImportSource @emotion/react */
-import { jsx, css } from "@emotion/react/macro"; // eslint-disable-line @typescript-eslint/no-unused-vars
-import { HTMLAttributes } from "react";
+import { jsx, css } from '@emotion/react/macro' // eslint-disable-line @typescript-eslint/no-unused-vars
+import { HTMLAttributes } from 'react'
 
 interface ScoreButtonProps {
-  disabled?: boolean;
-  score?: number | null;
-  name?: string;
-  longText?: boolean;
+  disabled?: boolean
+  score?: number | null
+  name?: string
+  longText?: boolean
 }
 
 export const ScoreButton: React.FC<
@@ -20,9 +20,9 @@ export const ScoreButton: React.FC<
       border-radius: 2vh;
       box-sizing: border-box;
       color: white;
-      cursor: ${buttonProps.disabled ? "not-allowed" : "pointer"};
+      cursor: ${buttonProps.disabled ? 'not-allowed' : 'pointer'};
       display: flex;
-      font-family: "Rye", cursive;
+      font-family: 'Rye', cursive;
       justify-content: space-between;
       text-align: left;
       text-transform: uppercase;
@@ -41,7 +41,7 @@ export const ScoreButton: React.FC<
     <span
       css={css`
         flex: 1;
-        font-size: ${longText ? "2.25vh" : "3vh"};
+        font-size: ${longText ? '2.25vh' : '3vh'};
         padding-right: 3vw;
       `}
     >
@@ -58,11 +58,11 @@ export const ScoreButton: React.FC<
         font-size: 2.5vh;
         justify-content: center;
         height: 5vh;
-        visibility: ${Number.isInteger(score) ? "visible" : "hidden"};
+        visibility: ${Number.isInteger(score) ? 'visible' : 'hidden'};
         width: 5vh;
       `}
     >
       {score}
     </span>
   </button>
-);
+)

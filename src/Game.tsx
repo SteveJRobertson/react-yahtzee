@@ -1,16 +1,16 @@
 import {
   /* useEffect, useReducer,  */ useEffect,
   /* , useState */
-} from "react";
+} from 'react'
 /* @jsxImportSource @emotion/react */
-import { jsx, css } from "@emotion/react/macro"; // eslint-disable-line @typescript-eslint/no-unused-vars
+import { jsx, css } from '@emotion/react/macro' // eslint-disable-line @typescript-eslint/no-unused-vars
 import {
   ActionButton,
   ButtonGrid,
   Dice,
   GameHeader,
   ScoreButton,
-} from "./components";
+} from './components'
 import {
   CATEGORIES,
   // ROLLS,
@@ -23,12 +23,12 @@ import {
   TEXT_NEW_GAME,
   // UPPER_BONUS,
   // UPPER_BONUS_SCORE,
-} from "./constants";
-import { ScoreCategory } from "./types";
-import { /* getRandomNumber,  */ toCamelCase } from "./util";
+} from './constants'
+import { ScoreCategory } from './types'
+import { /* getRandomNumber,  */ toCamelCase } from './util'
 // import { GameCtx } from "./GameCtx";
 // import { gameReducer } from "./gameReducer";
-import { useGame } from "./GameProvider";
+import { useGame } from './GameProvider'
 
 export const Game = () => {
   const {
@@ -39,19 +39,19 @@ export const Game = () => {
     selectScore,
     deselectScore,
     nextRound,
-  } = useGame();
+  } = useGame()
 
   useEffect(() => {
-    console.log(state);
-  }, [state]);
+    console.log(state)
+  }, [state])
 
   useEffect(() => {
     if (state.rolling) {
       setTimeout(() => {
-        stopRolling();
-      }, 2000);
+        stopRolling()
+      }, 2000)
     }
-  }, [state.rolling, stopRolling]);
+  }, [state.rolling, stopRolling])
 
   // const [state, dispatch] = useReducer(gameReducer, initialState);
 
@@ -232,17 +232,17 @@ export const Game = () => {
   const getScoreButtons = () =>
     [...CATEGORIES.upper, ...CATEGORIES.lower].map(
       ({ name, calculator, longText }) => {
-        const key = (toCamelCase(name) as unknown) as ScoreCategory;
+        const key = (toCamelCase(name) as unknown) as ScoreCategory
         const disabled =
           state.scoreButtonsDisabled ||
-          ((!state.selectedScore && state.scores.get(key)) as boolean);
+          ((!state.selectedScore && state.scores.get(key)) as boolean)
 
         return (
           <ScoreButton
             css={css`
-              visibility: ${key === (("bonus" as unknown) as ScoreCategory)
-                ? "hidden"
-                : "visible"};
+              visibility: ${key === (('bonus' as unknown) as ScoreCategory)
+                ? 'hidden'
+                : 'visible'};
             `}
             key={toCamelCase(name)}
             id={toCamelCase(name)}
@@ -262,9 +262,9 @@ export const Game = () => {
           >
             {name}
           </ScoreButton>
-        );
+        )
       }
-    );
+    )
 
   return (
     <div
@@ -272,7 +272,7 @@ export const Game = () => {
         background-color: SeaGreen;
         color: white;
         display: flex;
-        font-family: "Lato", sans-serif;
+        font-family: 'Lato', sans-serif;
         height: calc(100vh - 3.5rem);
         width: 100%;
       `}
@@ -314,7 +314,7 @@ export const Game = () => {
               disabled={state.rollButtonDisabled}
               onClick={rollDice}
             >
-              {TEXT_ROLL_DICE}{" "}
+              {TEXT_ROLL_DICE}{' '}
               {state.rollsRemaining && `(${state.rollsRemaining})`}
             </ActionButton>
           )}
@@ -333,5 +333,5 @@ export const Game = () => {
         </>
       )}
     </div>
-  );
-};
+  )
+}
