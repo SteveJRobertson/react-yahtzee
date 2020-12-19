@@ -158,14 +158,13 @@ const DieColumn: React.FC<DieColumnProps & HTMLAttributes<HTMLDivElement>> = ({
 interface DieProps {
   id: string;
   number?: number;
-  rotation: "forwards" | "backwards";
   width: number;
 }
 
-export const Die: React.FC<DieProps> = ({ id, number, rotation, width }) => {
+export const Die: React.FC<DieProps> = ({ id, number, width }) => {
   const {
     state: { diceDisabled, dice },
-    toggleHoldDie: onHold,
+    toggleHoldDie,
   } = useGame();
 
   const isHeld = dice
@@ -191,18 +190,18 @@ export const Die: React.FC<DieProps> = ({ id, number, rotation, width }) => {
   }, [number]);
 
   const handleClick = () => {
-    console.log(dice);
-    if (!diceDisabled && onHold) onHold(id);
+    toggleHoldDie(id);
   };
 
   return (
     <div
       css={css`
         align-items: center;
+        cursor: ${diceDisabled ? "not-allowed" : "pointer"};
         display: flex;
         justify-content: center;
       `}
-      onClick={handleClick}
+      {...(!diceDisabled && { onClick: handleClick })}
     >
       <div
         css={css`

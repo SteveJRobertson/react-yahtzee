@@ -45,7 +45,7 @@ export const ScoreButton: React.FC<
         padding-right: 3vw;
       `}
     >
-      {name}
+      {`${name}`}
     </span>
 
     <span
@@ -58,7 +58,7 @@ export const ScoreButton: React.FC<
         font-size: 2.5vh;
         justify-content: center;
         height: 5vh;
-        visibility: ${score ? "visible" : "hidden"};
+        visibility: ${Number.isInteger(score) ? "visible" : "hidden"};
         width: 5vh;
       `}
     >

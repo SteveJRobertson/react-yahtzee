@@ -27,20 +27,9 @@ export const Dice: React.FC<RefAttributes<HTMLDivElement>> = () => {
   const renderDice = () => {
     if (!dice) return null;
 
-    let rollForward = false;
-
-    return dice.map(({ id, score }, index) => {
-      rollForward = !rollForward;
-      return (
-        <Die
-          id={id}
-          number={score}
-          rotation={rollForward ? "forwards" : "backwards"}
-          width={dieWidth}
-          key={index}
-        />
-      );
-    });
+    return dice.map(({ id, score }, index) => (
+      <Die id={id} number={score} width={dieWidth} key={index} />
+    ));
   };
 
   return (

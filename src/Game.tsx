@@ -36,7 +36,8 @@ export const Game = () => {
     startGame,
     rollDice,
     stopRolling,
-    getScore,
+    selectScore,
+    deselectScore,
     nextRound,
   } = useGame();
 
@@ -232,16 +233,32 @@ export const Game = () => {
     [...CATEGORIES.upper, ...CATEGORIES.lower].map(
       ({ name, calculator, longText }) => {
         const key = (toCamelCase(name) as unknown) as ScoreCategory;
+        const disabled =
+          state.scoreButtonsDisabled ||
+          ((!state.selectedScore && state.scores.get(key)) as boolean);
 
         return (
           <ScoreButton
+            css={css`
+              visibility: ${key === (("bonus" as unknown) as ScoreCategory)
+                ? "hidden"
+                : "visible"};
+            `}
             key={toCamelCase(name)}
             id={toCamelCase(name)}
             name={name}
-            score={state.scores.get(key) || null}
+            score={
+              Number.isInteger(state.scores.get(key))
+                ? state.scores.get(key)
+                : null
+            }
             longText={longText}
-            disabled={state.scoreButtonsDisabled}
-            onClick={() => getScore(key, calculator)}
+            disabled={disabled}
+            onClick={() =>
+              state.scores.has(key)
+                ? deselectScore(key)
+                : selectScore(key, calculator)
+            }
           >
             {name}
           </ScoreButton>
@@ -262,7 +279,7 @@ export const Game = () => {
     >
       {state?.displayGame ? (
         <>
-          <GameHeader totalScore={0} />
+          <GameHeader />
           <div
             css={css`
               display: flex;
@@ -276,7 +293,7 @@ export const Game = () => {
             <ButtonGrid>{getScoreButtons()}</ButtonGrid>
             <Dice />
           </div>
-          {state.rollsRemaining === 0 ? (
+          {state.rollsRemaining === 0 || state.selectedScore ? (
             state.roundsRemaining === 0 ? (
               <ActionButton
                 disabled={state.rollButtonDisabled}
@@ -297,7 +314,8 @@ export const Game = () => {
               disabled={state.rollButtonDisabled}
               onClick={rollDice}
             >
-              {TEXT_ROLL_DICE} ({state.rollsRemaining})
+              {TEXT_ROLL_DICE}{" "}
+              {state.rollsRemaining && `(${state.rollsRemaining})`}
             </ActionButton>
           )}
         </>

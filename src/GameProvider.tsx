@@ -21,10 +21,13 @@ export interface GameState {
   rollButtonDisabled: boolean;
   roundsRemaining: number;
   rollsRemaining: number;
+  lastRoll: number | null;
   roundInProgress: boolean;
   rolling: boolean;
+  rolled: boolean;
   dice: DiceState;
   scores: Scores;
+  selectedScore: ScoreCategory | null;
 }
 
 type CalculatorFunction = (diceScore: DiceNumbers) => number;
@@ -36,7 +39,8 @@ const gameCtx = createContext(
     rollDice: () => void;
     stopRolling: () => void;
     toggleHoldDie: (id: string) => void;
-    getScore: (key: ScoreCategory, calculator?: CalculatorFunction) => void;
+    selectScore: (key: ScoreCategory, calculator?: CalculatorFunction) => void;
+    deselectScore: (key: ScoreCategory) => void;
     nextRound: () => void;
   }
 );
@@ -53,7 +57,9 @@ export const initialState: GameState = {
   roundsRemaining: NUM_CATEGORIES,
   roundInProgress: false,
   rollsRemaining: ROLLS,
+  lastRoll: null,
   rolling: false,
+  rolled: false,
   dice: [
     { id: diceIds[0], hold: false, score: 0 },
     { id: diceIds[1], hold: false, score: 0 },
@@ -62,6 +68,7 @@ export const initialState: GameState = {
     { id: diceIds[4], hold: false, score: 0 },
   ],
   scores: new Map(),
+  selectedScore: null,
 };
 
 export const GameProvider: React.FC<GameProviderProps> = ({ children }) => {
@@ -79,8 +86,13 @@ export const GameProvider: React.FC<GameProviderProps> = ({ children }) => {
     dispatch,
   ]);
 
-  const getScore = useCallback(
-    (key, calculator) => dispatch({ type: "GET_SCORE", key, calculator }),
+  const selectScore = useCallback(
+    (key, calculator) => dispatch({ type: "SELECT_SCORE", key, calculator }),
+    [dispatch]
+  );
+
+  const deselectScore = useCallback(
+    (key) => dispatch({ type: "DESELECT_SCORE", key }),
     [dispatch]
   );
 
@@ -89,9 +101,10 @@ export const GameProvider: React.FC<GameProviderProps> = ({ children }) => {
     [dispatch]
   );
 
-  const nextRound = useCallback(() => dispatch({ type: "NEXT_ROUND" }), [
-    dispatch,
-  ]);
+  const nextRound = useCallback(async () => {
+    await dispatch({ type: "NEXT_ROUND" });
+    await dispatch({ type: "ROLL_DICE" });
+  }, [dispatch]);
 
   return (
     <gameCtx.Provider
@@ -101,7 +114,8 @@ export const GameProvider: React.FC<GameProviderProps> = ({ children }) => {
         rollDice,
         stopRolling,
         toggleHoldDie,
-        getScore,
+        selectScore,
+        deselectScore,
         nextRound,
       }}
     >
