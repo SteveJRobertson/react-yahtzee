@@ -77,6 +77,6 @@
     }
   },
   "lint-staged": {
-    "*.--fix": "prettier --write"
+    "*.--fix": "npm run format"
   }
 }
