@@ -88,7 +88,6 @@ export const Game = () => {
         flex-direction: column;
         font-family: "Lato", sans-serif;
         height: calc(100vh - 3.5rem);
-        justify-content: center;
         width: 100%;
       `}
     >
@@ -136,22 +135,30 @@ export const Game = () => {
         </>
       ) : (
         <>
-          <h1
+          <div
             css={css`
-              align-self: center;
-              margin: 0 auto;
+              display: flex;
+              flex-direction: column;
+              height: calc(100vh - 48px);
+              justify-content: center;
+              text-align: center;
             `}
           >
-            React Yahtzee
-          </h1>
-          <p
-            css={css`
-              align-self: center;
-              margin: 0 auto;
-            `}
-          >
-            v{`${process.env.REACT_APP_VERSION}`}
-          </p>
+            <h1
+              css={css`
+                margin: 0;
+              `}
+            >
+              React Yahtzee
+            </h1>
+            <p
+              css={css`
+                margin: 0.5rem 0;
+              `}
+            >
+              v{`${process.env.REACT_APP_VERSION}`}
+            </p>
+          </div>
           <ActionButton onClick={startGame}>{TEXT_START_GAME}</ActionButton>
         </>
       )}
