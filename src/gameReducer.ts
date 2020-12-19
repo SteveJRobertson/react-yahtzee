@@ -89,6 +89,13 @@ export function gameReducer(state: GameState, action: GameActionType) {
           : new Map(state.scores)
         : new Map(state.scores)
 
+      // If there is a selected score, delete it and replace with the current score
+      let scoresToUpdate = state.selectedScore
+        ? newScores.delete(state.selectedScore)
+          ? new Map(newScores)
+          : new Map(state.scores)
+        : new Map(state.scores)
+
       return {
         ...state,
         scores: action.calculator
