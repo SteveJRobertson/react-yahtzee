@@ -1,29 +1,10 @@
 /* @jsxImportSource @emotion/react */
-import { jsx, css, keyframes } from '@emotion/react/macro' // eslint-disable-line @typescript-eslint/no-unused-vars
+import { jsx, css } from '@emotion/react/macro' // eslint-disable-line @typescript-eslint/no-unused-vars
 import { HTMLAttributes, useEffect, useState } from 'react'
 import { MAX, MIN, POSITIONS } from '../../constants'
 import { useGame } from '../../GameProvider'
 import { DieState } from '../../types'
 import { getRandomNumber } from '../../util'
-
-// const spin = keyframes`
-//   from { transform: rotateX(0) rotateY(0); }
-//   to { transform: rotateX(360deg) rotateY(360deg); }
-// `;
-
-// const spinPartial = css`
-//   animation: ${spin} 2s infinite linear;
-// `;
-
-// const spinBackwards = keyframes`
-//   from { transform: rotateX(0) rotateZ(0); }
-//   to { transform: rotateX(-360deg) rotateZ(-360deg); }
-// `;
-
-// const spinBackwardsPartial = css`
-//   animation: ${spinBackwards} 2s infinite linear;
-//   transform: rotateX(-45deg) rotateZ(-45deg);
-// `;
 
 interface DotProps {
   alignSelf?: string
