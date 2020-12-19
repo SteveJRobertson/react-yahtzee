@@ -1,6 +1,6 @@
 {
   "name": "react-yahtzee",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "private": true,
   "homepage": "https://sr.digital/react-yahtzee",
   "dependencies": {
