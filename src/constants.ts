@@ -22,6 +22,9 @@ export const ROLLS = 3;
 export const TEXT_START_GAME = "Start";
 export const TEXT_ROLL_DICE = "Roll";
 export const TEXT_NEXT_ROUND = "Next Round";
+export const TEXT_NEW_GAME = "New Game";
+export const UPPER_BONUS_SCORE = 63;
+export const UPPER_BONUS = 35;
 
 export const POSITIONS: DiePositions = [
   [
@@ -133,4 +136,5 @@ export const CATEGORIES: {
   ],
 };
 
-export const NUM_CATEGORIES = CATEGORIES.upper.length + CATEGORIES.lower.length;
+export const NUM_CATEGORIES = 2;
+// CATEGORIES.upper.length + CATEGORIES.lower.length - 1

@@ -2,7 +2,8 @@
 import { jsx, css, keyframes } from "@emotion/react/macro"; // eslint-disable-line @typescript-eslint/no-unused-vars
 import { HTMLAttributes, useEffect, useState } from "react";
 import { MAX, MIN, POSITIONS } from "../../constants";
-import { useGame } from "../../GameCtx";
+import { useGame } from "../../GameProvider";
+import { DieState } from "../../types";
 import { getRandomNumber } from "../../util";
 
 // const spin = keyframes`
@@ -157,15 +158,17 @@ const DieColumn: React.FC<DieColumnProps & HTMLAttributes<HTMLDivElement>> = ({
 interface DieProps {
   id: string;
   number?: number;
-  rotation: "forwards" | "backwards";
   width: number;
 }
 
-export const Die: React.FC<DieProps> = ({ id, number, rotation, width }) => {
-  const { diceState, roundStarted, onHold } = useGame();
+export const Die: React.FC<DieProps> = ({ id, number, width }) => {
+  const {
+    state: { diceDisabled, dice },
+    toggleHoldDie,
+  } = useGame();
 
-  const isHeld = diceState
-    ? diceState.find((dieState) => dieState.id === id)?.hold
+  const isHeld = dice
+    ? dice.find((dieState: DieState) => dieState.id === id)?.hold
     : false;
 
   const [held, setHeld] = useState<boolean>(false);
@@ -187,17 +190,18 @@ export const Die: React.FC<DieProps> = ({ id, number, rotation, width }) => {
   }, [number]);
 
   const handleClick = () => {
-    if (roundStarted && onHold) onHold(id);
+    toggleHoldDie(id);
   };
 
   return (
     <div
       css={css`
         align-items: center;
+        cursor: ${diceDisabled ? "not-allowed" : "pointer"};
         display: flex;
         justify-content: center;
       `}
-      onClick={handleClick}
+      {...(!diceDisabled && { onClick: handleClick })}
     >
       <div
         css={css`

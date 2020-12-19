@@ -1,24 +1,17 @@
 /* @jsxImportSource @emotion/react */
 import { jsx, css } from "@emotion/react/macro"; // eslint-disable-line @typescript-eslint/no-unused-vars
-import {
-  forwardRef,
-  ForwardRefExoticComponent,
-  RefAttributes,
-  useEffect,
-  useState,
-} from "react";
+import { RefAttributes, useEffect, useState } from "react";
+import useResizeObserver from "use-resize-observer";
 import { NUM_DICE } from "../../constants";
-import { useGame } from "../../GameCtx";
+import { useGame } from "../../GameProvider";
 import { Die } from "../Die";
 
-interface DiceProps {
-  width: number;
-}
+export const Dice: React.FC<RefAttributes<HTMLDivElement>> = () => {
+  const {
+    state: { dice },
+  } = useGame();
 
-export const Dice: ForwardRefExoticComponent<
-  DiceProps & RefAttributes<HTMLDivElement>
-> = forwardRef(({ width }, ref) => {
-  const { diceState } = useGame();
+  const { ref, width = 1 } = useResizeObserver<HTMLDivElement>();
 
   const DICE_SPACER = 1.5;
   const calculateWidth = (newWidth: number) =>
@@ -32,22 +25,11 @@ export const Dice: ForwardRefExoticComponent<
   }, [width]);
 
   const renderDice = () => {
-    if (!diceState) return null;
+    if (!dice) return null;
 
-    let rollForward = false;
-
-    return diceState.map(({ id, score }, index) => {
-      rollForward = !rollForward;
-      return (
-        <Die
-          id={id}
-          number={score}
-          rotation={rollForward ? "forwards" : "backwards"}
-          width={dieWidth}
-          key={index}
-        />
-      );
-    });
+    return dice.map(({ id, score }, index) => (
+      <Die id={id} number={score} width={dieWidth} key={index} />
+    ));
   };
 
   return (
@@ -72,4 +54,4 @@ export const Dice: ForwardRefExoticComponent<
       </div>
     </div>
   );
-});
+};
