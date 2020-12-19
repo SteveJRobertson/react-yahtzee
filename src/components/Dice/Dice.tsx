@@ -1,36 +1,36 @@
 /* @jsxImportSource @emotion/react */
-import { jsx, css } from '@emotion/react/macro' // eslint-disable-line @typescript-eslint/no-unused-vars
-import { RefAttributes, useEffect, useState } from 'react'
-import useResizeObserver from 'use-resize-observer'
-import { NUM_DICE } from '../../constants'
-import { useGame } from '../../GameProvider'
-import { Die } from '../Die'
+import { jsx, css } from "@emotion/react/macro"; // eslint-disable-line @typescript-eslint/no-unused-vars
+import { RefAttributes, useEffect, useState } from "react";
+import useResizeObserver from "use-resize-observer";
+import { NUM_DICE } from "../../constants";
+import { useGame } from "../../GameProvider";
+import { Die } from "../Die";
 
 export const Dice: React.FC<RefAttributes<HTMLDivElement>> = () => {
   const {
     state: { dice },
-  } = useGame()
+  } = useGame();
 
-  const { ref, width = 1 } = useResizeObserver<HTMLDivElement>()
+  const { ref, width = 1 } = useResizeObserver<HTMLDivElement>();
 
-  const DICE_SPACER = 1.5
+  const DICE_SPACER = 1.5;
   const calculateWidth = (newWidth: number) =>
     Math.floor(newWidth / NUM_DICE) -
-    16 * ((DICE_SPACER * (NUM_DICE - 1)) / NUM_DICE)
+    16 * ((DICE_SPACER * (NUM_DICE - 1)) / NUM_DICE);
 
-  const [dieWidth, setDieWidth] = useState<number>(calculateWidth(width))
+  const [dieWidth, setDieWidth] = useState<number>(calculateWidth(width));
 
   useEffect(() => {
-    setDieWidth(calculateWidth(width))
-  }, [width])
+    setDieWidth(calculateWidth(width));
+  }, [width]);
 
   const renderDice = () => {
-    if (!dice) return null
+    if (!dice) return null;
 
     return dice.map(({ id, score }, index) => (
       <Die id={id} number={score} width={dieWidth} key={index} />
-    ))
-  }
+    ));
+  };
 
   return (
     <div
@@ -53,5 +53,5 @@ export const Dice: React.FC<RefAttributes<HTMLDivElement>> = () => {
         {renderDice()}
       </div>
     </div>
-  )
-}
+  );
+};

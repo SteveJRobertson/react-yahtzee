@@ -1,44 +1,44 @@
-import { ROLLS, MAX, MIN } from './constants'
-import { DiceNumbers, DiceState, ScoreCategory } from './types'
-import { getRandomNumber } from './util'
-import { GameState, initialState } from './GameProvider'
+import { ROLLS, MAX, MIN } from "./constants";
+import { DiceNumbers, DiceState, ScoreCategory } from "./types";
+import { getRandomNumber } from "./util";
+import { GameState, initialState } from "./GameProvider";
 
 type GameActionType =
-  | { type: 'START_GAME' }
-  | { type: 'ROLL_DICE' }
-  | { type: 'STOP_ROLLING' }
-  | { type: 'TOGGLE_HOLD_DIE'; id: string }
+  | { type: "START_GAME" }
+  | { type: "ROLL_DICE" }
+  | { type: "STOP_ROLLING" }
+  | { type: "TOGGLE_HOLD_DIE"; id: string }
   | {
-      type: 'SELECT_SCORE'
-      key: ScoreCategory
-      calculator?: (diceScore: DiceNumbers) => number
+      type: "SELECT_SCORE";
+      key: ScoreCategory;
+      calculator?: (diceScore: DiceNumbers) => number;
     }
   | {
-      type: 'DESELECT_SCORE'
-      key: ScoreCategory
+      type: "DESELECT_SCORE";
+      key: ScoreCategory;
     }
-  | { type: 'NEXT_ROUND' }
+  | { type: "NEXT_ROUND" };
 
 export function gameReducer(state: GameState, action: GameActionType) {
-  let newScores = state.scores
+  let newScores = state.scores;
 
   switch (action.type) {
-    case 'START_GAME':
-      console.log('STATE', {
+    case "START_GAME":
+      console.log("STATE", {
         ...initialState,
         displayGame: true,
         rollButtonDisabled: false,
         roundsRemaining: state.roundsRemaining - 1,
-      })
+      });
       return {
         ...initialState,
         displayGame: true,
         rollButtonDisabled: false,
         roundsRemaining: state.roundsRemaining - 1,
-      }
-    case 'ROLL_DICE':
+      };
+    case "ROLL_DICE":
       const rollsRemaining =
-        state.rollsRemaining > 0 ? state.rollsRemaining - 1 : 0
+        state.rollsRemaining > 0 ? state.rollsRemaining - 1 : 0;
       return {
         ...state,
         diceDisabled: true,
@@ -55,8 +55,8 @@ export function gameReducer(state: GameState, action: GameActionType) {
                 score: getRandomNumber(MAX, MIN),
               }
         ) as DiceState,
-      }
-    case 'STOP_ROLLING':
+      };
+    case "STOP_ROLLING":
       return {
         ...state,
         diceDisabled: false,
@@ -64,8 +64,8 @@ export function gameReducer(state: GameState, action: GameActionType) {
         rollButtonDisabled: false,
         rolling: false,
         rolled: true,
-      }
-    case 'TOGGLE_HOLD_DIE':
+      };
+    case "TOGGLE_HOLD_DIE":
       return {
         ...state,
         dice: state.dice.map((dieState) =>
@@ -76,17 +76,17 @@ export function gameReducer(state: GameState, action: GameActionType) {
                 hold: !dieState.hold,
               }
         ) as DiceState,
-      }
-    case 'SELECT_SCORE':
+      };
+    case "SELECT_SCORE":
       const diceScores = state.dice
         ? (state.dice.map((dieState) => dieState.score) as DiceNumbers)
-        : ([0, 0, 0, 0, 0] as DiceNumbers)
+        : ([0, 0, 0, 0, 0] as DiceNumbers);
 
       let scoresToUpdate = state.selectedScore
         ? newScores.delete(state.selectedScore)
           ? new Map(newScores)
           : new Map(state.scores)
-        : new Map(state.scores)
+        : new Map(state.scores);
 
       return {
         ...state,
@@ -96,14 +96,14 @@ export function gameReducer(state: GameState, action: GameActionType) {
             )
           : state.scores,
         selectedScore: action.key,
-      }
-    case 'DESELECT_SCORE':
+      };
+    case "DESELECT_SCORE":
       return {
         ...state,
         scores: newScores.delete(action.key) ? newScores : state.scores,
         selectedScore: null,
-      }
-    case 'NEXT_ROUND':
+      };
+    case "NEXT_ROUND":
       return {
         ...state,
         diceDisabled: true,
@@ -116,8 +116,8 @@ export function gameReducer(state: GameState, action: GameActionType) {
           hold: false,
         })) as DiceState,
         selectedScore: null,
-      }
+      };
     default:
-      return state
+      return state;
   }
 }
