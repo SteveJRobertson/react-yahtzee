@@ -72,11 +72,8 @@
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged",
-      "pre-push": "npm run test:nowatch"
+      "pre-commit": "npm run format",
+      "pre-push": "npm run check && npm run test:nowatch"
     }
-  },
-  "lint-staged": {
-    "*.--fix": "prettier --write"
   }
 }

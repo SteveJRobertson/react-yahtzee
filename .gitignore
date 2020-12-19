@@ -27,4 +27,4 @@ yarn-error.log*
 *.code-workspace
 
 # eslint
-.eslintcache
+/.eslintcache

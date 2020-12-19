@@ -6,25 +6,6 @@ import { useGame } from "../../GameProvider";
 import { DieState } from "../../types";
 import { getRandomNumber } from "../../util";
 
-// const spin = keyframes`
-//   from { transform: rotateX(0) rotateY(0); }
-//   to { transform: rotateX(360deg) rotateY(360deg); }
-// `;
-
-// const spinPartial = css`
-//   animation: ${spin} 2s infinite linear;
-// `;
-
-// const spinBackwards = keyframes`
-//   from { transform: rotateX(0) rotateZ(0); }
-//   to { transform: rotateX(-360deg) rotateZ(-360deg); }
-// `;
-
-// const spinBackwardsPartial = css`
-//   animation: ${spinBackwards} 2s infinite linear;
-//   transform: rotateX(-45deg) rotateZ(-45deg);
-// `;
-
 interface DotProps {
   alignSelf?: string;
   dieWidth: number;
