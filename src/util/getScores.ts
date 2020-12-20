@@ -1,4 +1,5 @@
-import { DiceNumbers } from "../types";
+import { CATEGORIES, UPPER_BONUS, UPPER_BONUS_SCORE } from "../constants";
+import { DiceNumbers, Scores, ScoreCategory } from "../types";
 
 const getNumberScore = (diceScore: DiceNumbers, num: number) =>
   diceScore.reduce(
@@ -71,4 +72,33 @@ export const getYahtzee = (diceScore: DiceNumbers) => {
   }
 
   return 0;
+};
+
+export const getUpperBonus = (scores: Scores) =>
+  CATEGORIES.upper
+    .map((category) => category.id)
+    .map((id) =>
+      scores ? scores.get((id as unknown) as ScoreCategory) || 0 : 0
+    )
+    .reduce((total, score) => total + score) >= UPPER_BONUS_SCORE
+    ? UPPER_BONUS
+    : 0;
+
+export const getTotalScore = (scores: Scores) => {
+  const upperScore = CATEGORIES.upper
+    .map((category) => category.id)
+    .map((id) =>
+      scores ? scores.get((id as unknown) as ScoreCategory) || 0 : 0
+    )
+    .reduce((total, score) => total + score);
+  const lowerScore = CATEGORIES.lower
+    .map((category) => category.id)
+    .map((id) =>
+      scores ? scores.get((id as unknown) as ScoreCategory) || 0 : 0
+    )
+    .reduce((total, score) => total + score);
+
+  const upperScoreBonus = getUpperBonus(scores);
+
+  return upperScore + lowerScore + upperScoreBonus;
 };
