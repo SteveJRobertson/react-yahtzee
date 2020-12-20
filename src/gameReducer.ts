@@ -1,6 +1,6 @@
 import { ROLLS, MAX, MIN } from "./constants";
 import { DiceNumbers, DiceState, ScoreCategory } from "./types";
-import { getRandomNumber } from "./util";
+import { getRandomNumber, getUpperBonus, getTotalScore } from "./util";
 import { GameState, initialState } from "./GameProvider";
 
 type GameActionType =
@@ -24,17 +24,13 @@ export function gameReducer(state: GameState, action: GameActionType) {
 
   switch (action.type) {
     case "START_GAME":
-      console.log("STATE", {
-        ...initialState,
-        displayGame: true,
-        rollButtonDisabled: false,
-        roundsRemaining: state.roundsRemaining - 1,
-      });
       return {
         ...initialState,
         displayGame: true,
         rollButtonDisabled: false,
         roundsRemaining: state.roundsRemaining - 1,
+        upperScoreBonus: 0,
+        totalScore: 0,
       };
     case "ROLL_DICE":
       const rollsRemaining =
@@ -82,7 +78,6 @@ export function gameReducer(state: GameState, action: GameActionType) {
         ? (state.dice.map((dieState) => dieState.score) as DiceNumbers)
         : ([0, 0, 0, 0, 0] as DiceNumbers);
 
-      // If there is a selected score, delete it and replace with the current score
       let scoresToUpdate = state.selectedScore
         ? newScores.delete(state.selectedScore)
           ? new Map(newScores)
@@ -97,6 +92,8 @@ export function gameReducer(state: GameState, action: GameActionType) {
             )
           : state.scores,
         selectedScore: action.key,
+        upperScoreBonus: getUpperBonus(scoresToUpdate),
+        totalScore: getTotalScore(scoresToUpdate),
       };
     case "DESELECT_SCORE":
       return {

@@ -28,6 +28,8 @@ export interface GameState {
   dice: DiceState;
   scores: Scores;
   selectedScore: ScoreCategory | null;
+  upperScoreBonus: number;
+  totalScore: number;
 }
 
 type CalculatorFunction = (diceScore: DiceNumbers) => number;
@@ -69,6 +71,8 @@ export const initialState: GameState = {
   ],
   scores: new Map(),
   selectedScore: null,
+  upperScoreBonus: 0,
+  totalScore: 0,
 };
 
 export const GameProvider: React.FC<GameProviderProps> = ({ children }) => {

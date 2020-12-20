@@ -46,14 +46,16 @@ export const Game = () => {
     [...CATEGORIES.upper, ...CATEGORIES.lower].map(
       ({ name, calculator, longText }) => {
         const key = (toCamelCase(name) as unknown) as ScoreCategory;
+        const isUpperBonus = key === (("bonus" as unknown) as ScoreCategory);
         const disabled =
           state.scoreButtonsDisabled ||
-          ((!state.selectedScore && state.scores.get(key)) as boolean);
+          ((!state.selectedScore && state.scores.get(key)) as boolean) ||
+          isUpperBonus;
 
         return (
           <ScoreButton
             css={css`
-              visibility: ${key === (("bonus" as unknown) as ScoreCategory)
+              visibility: ${isUpperBonus && state.upperScoreBonus === 0
                 ? "hidden"
                 : "visible"};
             `}
@@ -61,7 +63,9 @@ export const Game = () => {
             id={toCamelCase(name)}
             name={name}
             score={
-              Number.isInteger(state.scores.get(key))
+              isUpperBonus && state.upperScoreBonus > 0
+                ? state.upperScoreBonus
+                : Number.isInteger(state.scores.get(key))
                 ? state.scores.get(key)
                 : null
             }
