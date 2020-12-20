@@ -117,7 +117,7 @@ export const Game = () => {
               </ActionButton>
             ) : (
               <ActionButton
-                disabled={state.rollButtonDisabled}
+                disabled={state.rollButtonDisabled || !state.selectedScore}
                 onClick={nextRound}
               >
                 {TEXT_NEXT_ROUND}
