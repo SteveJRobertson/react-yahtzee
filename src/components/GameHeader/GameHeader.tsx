@@ -1,30 +1,12 @@
 /* @jsxImportSource @emotion/react */
 import { jsx, css } from "@emotion/react/macro"; // eslint-disable-line @typescript-eslint/no-unused-vars
-import { CATEGORIES, UPPER_BONUS, UPPER_BONUS_SCORE } from "../../constants";
 import { useGame } from "../../GameProvider";
-import { ScoreCategory } from "../../types";
+import { getTotalScore } from "../../util";
 
 export const GameHeader: React.FC = () => {
   const {
     state: { scores },
   } = useGame();
-
-  const upperScore = CATEGORIES.upper
-    .map((category) => category.id)
-    .map((id) =>
-      scores ? scores.get((id as unknown) as ScoreCategory) || 0 : 0
-    )
-    .reduce((total, score) => total + score);
-  const lowerScore = CATEGORIES.lower
-    .map((category) => category.id)
-    .map((id) =>
-      scores ? scores.get((id as unknown) as ScoreCategory) || 0 : 0
-    )
-    .reduce((total, score) => total + score);
-
-  const upperScoreBonus = upperScore >= UPPER_BONUS_SCORE ? UPPER_BONUS : 0;
-
-  const totalScore = upperScore + lowerScore + upperScoreBonus;
 
   return (
     <header
@@ -43,7 +25,7 @@ export const GameHeader: React.FC = () => {
         width: 100%;
       `}
     >
-      <span>Score: {totalScore}</span>
+      <span>Score: {getTotalScore(scores)}</span>
     </header>
   );
 };

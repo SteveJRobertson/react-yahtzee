@@ -1,3 +1,5 @@
+import { UPPER_BONUS, UPPER_BONUS_SCORE } from "../constants";
+import { ScoreCategory } from "../types";
 import {
   getAces,
   getTwos,
@@ -12,6 +14,8 @@ import {
   getLargeStraight,
   getChance,
   getYahtzee,
+  getUpperBonus,
+  getTotalScore,
 } from "./getScores";
 
 describe("getScores", () => {
@@ -290,6 +294,62 @@ describe("getScores", () => {
 
     it("scores 5", () => {
       expect(getYahtzee([1, 1, 1, 1, 1])).toBe(50);
+    });
+  });
+
+  describe("getUpperBonus", () => {
+    it(`gets the bonus when the upper total is equal to ${UPPER_BONUS_SCORE}`, () => {
+      const scores = new Map([
+        [("aces" as unknown) as ScoreCategory, 3],
+        [("twos" as unknown) as ScoreCategory, 6],
+        [("threes" as unknown) as ScoreCategory, 9],
+        [("fours" as unknown) as ScoreCategory, 12],
+        [("fives" as unknown) as ScoreCategory, 15],
+        [("sixes" as unknown) as ScoreCategory, 18],
+      ]);
+
+      expect(getUpperBonus(scores)).toBe(UPPER_BONUS);
+    });
+
+    it(`gets the bonus when the upper total is greater than ${UPPER_BONUS_SCORE}`, () => {
+      const scores = new Map([
+        [("aces" as unknown) as ScoreCategory, 4],
+        [("twos" as unknown) as ScoreCategory, 8],
+        [("threes" as unknown) as ScoreCategory, 12],
+        [("fours" as unknown) as ScoreCategory, 16],
+        [("fives" as unknown) as ScoreCategory, 20],
+        [("sixes" as unknown) as ScoreCategory, 24],
+      ]);
+
+      expect(getUpperBonus(scores)).toBe(UPPER_BONUS);
+    });
+
+    it(`does not get the bonus when the upper total is less than ${UPPER_BONUS_SCORE}`, () => {
+      const scores = new Map([
+        [("aces" as unknown) as ScoreCategory, 2],
+        [("twos" as unknown) as ScoreCategory, 4],
+        [("threes" as unknown) as ScoreCategory, 6],
+        [("fours" as unknown) as ScoreCategory, 8],
+        [("fives" as unknown) as ScoreCategory, 10],
+        [("sixes" as unknown) as ScoreCategory, 12],
+      ]);
+
+      expect(getUpperBonus(scores)).toBe(0);
+    });
+  });
+
+  describe("getTotalScore", () => {
+    it("calculates the total score", () => {
+      const scores = new Map([
+        [("aces" as unknown) as ScoreCategory, 1],
+        [("twos" as unknown) as ScoreCategory, 2],
+        [("threes" as unknown) as ScoreCategory, 3],
+        [("fours" as unknown) as ScoreCategory, 4],
+        [("fives" as unknown) as ScoreCategory, 5],
+        [("sixes" as unknown) as ScoreCategory, 6],
+      ]);
+
+      expect(getTotalScore(scores)).toBe(21);
     });
   });
 });
