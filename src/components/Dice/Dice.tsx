@@ -27,9 +27,17 @@ export const Dice: React.FC<RefAttributes<HTMLDivElement>> = () => {
   const renderDice = () => {
     if (!dice) return null;
 
-    return dice.map(({ id, score }, index) => (
-      <Die id={id} number={score} width={dieWidth} key={index} />
-    ));
+    return dice.map(({ id, count, score }, index) => {
+      return (
+        <Die
+          id={id}
+          count={count}
+          number={score}
+          width={dieWidth}
+          key={index}
+        />
+      );
+    });
   };
 
   return (

@@ -31,10 +31,6 @@ export const Game = () => {
   } = useGame();
 
   useEffect(() => {
-    console.log(state);
-  }, [state]);
-
-  useEffect(() => {
     if (state.rolling) {
       setTimeout(() => {
         stopRolling();

@@ -48,6 +48,7 @@ export function gameReducer(state: GameState, action: GameActionType) {
             ? dieState
             : {
                 ...dieState,
+                count: dieState.count + 1,
                 score: getRandomNumber(MAX, MIN),
               }
         ) as DiceState,
