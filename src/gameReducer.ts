@@ -1,4 +1,4 @@
-import { ROLLS, MAX, MIN } from "./constants";
+import { ROLLS, MAX, MIN, NUM_CATEGORIES } from "./constants";
 import { DiceNumbers, DiceState, ScoreCategory } from "./types";
 import { getRandomNumber, getUpperBonus, getTotalScore } from "./util";
 import { GameState, initialState } from "./GameProvider";
@@ -28,7 +28,7 @@ export function gameReducer(state: GameState, action: GameActionType) {
         ...initialState,
         displayGame: true,
         rollButtonDisabled: false,
-        roundsRemaining: state.roundsRemaining - 1,
+        roundsRemaining: NUM_CATEGORIES - 1,
         upperScoreBonus: 0,
         totalScore: 0,
       };
