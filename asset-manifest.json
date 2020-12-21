@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/react-yahtzee/static/css/main.4a4137e4.chunk.css",
-    "main.js": "/react-yahtzee/static/js/main.e9c46e3e.chunk.js",
-    "main.js.map": "/react-yahtzee/static/js/main.e9c46e3e.chunk.js.map",
+    "main.js": "/react-yahtzee/static/js/main.f88d8136.chunk.js",
+    "main.js.map": "/react-yahtzee/static/js/main.f88d8136.chunk.js.map",
     "runtime-main.js": "/react-yahtzee/static/js/runtime-main.ced67cb3.js",
     "runtime-main.js.map": "/react-yahtzee/static/js/runtime-main.ced67cb3.js.map",
-    "static/js/2.6629e8ff.chunk.js": "/react-yahtzee/static/js/2.6629e8ff.chunk.js",
-    "static/js/2.6629e8ff.chunk.js.map": "/react-yahtzee/static/js/2.6629e8ff.chunk.js.map",
+    "static/js/2.6e52650c.chunk.js": "/react-yahtzee/static/js/2.6e52650c.chunk.js",
+    "static/js/2.6e52650c.chunk.js.map": "/react-yahtzee/static/js/2.6e52650c.chunk.js.map",
     "static/js/3.1c2bb2a6.chunk.js": "/react-yahtzee/static/js/3.1c2bb2a6.chunk.js",
     "static/js/3.1c2bb2a6.chunk.js.map": "/react-yahtzee/static/js/3.1c2bb2a6.chunk.js.map",
     "index.html": "/react-yahtzee/index.html",
     "static/css/main.4a4137e4.chunk.css.map": "/react-yahtzee/static/css/main.4a4137e4.chunk.css.map",
-    "static/js/2.6629e8ff.chunk.js.LICENSE.txt": "/react-yahtzee/static/js/2.6629e8ff.chunk.js.LICENSE.txt"
+    "static/js/2.6e52650c.chunk.js.LICENSE.txt": "/react-yahtzee/static/js/2.6e52650c.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.ced67cb3.js",
-    "static/js/2.6629e8ff.chunk.js",
+    "static/js/2.6e52650c.chunk.js",
     "static/css/main.4a4137e4.chunk.css",
-    "static/js/main.e9c46e3e.chunk.js"
+    "static/js/main.f88d8136.chunk.js"
   ]
 }
