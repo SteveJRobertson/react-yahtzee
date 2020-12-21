@@ -112,21 +112,12 @@ export const Game = () => {
             <Dice />
           </div>
           {state.rollsRemaining === 0 || state.selectedScore ? (
-            state.roundsRemaining === 0 ? (
-              <ActionButton
-                disabled={state.rollButtonDisabled}
-                onClick={startGame}
-              >
-                {TEXT_NEW_GAME}
-              </ActionButton>
-            ) : (
-              <ActionButton
-                disabled={state.rollButtonDisabled || !state.selectedScore}
-                onClick={nextRound}
-              >
-                {TEXT_NEXT_ROUND}
-              </ActionButton>
-            )
+            <ActionButton
+              disabled={state.rollButtonDisabled || !state.selectedScore}
+              onClick={state.roundsRemaining === 0 ? startGame : nextRound}
+            >
+              {state.roundsRemaining === 0 ? TEXT_NEW_GAME : TEXT_NEXT_ROUND}
+            </ActionButton>
           ) : (
             <ActionButton
               disabled={state.rollButtonDisabled}

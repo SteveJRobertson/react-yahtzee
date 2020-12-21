@@ -13,7 +13,7 @@ export const ActionButton: React.FC<
       border-radius: 0;
       bottom: 0;
       box-sizing: border-box;
-      color: white;
+      color: ${buttonProps.disabled ? "rgba(255, 255, 255, 0.75)" : "white"};
       font-family: "Rye", cursive;
       font-size: 1.5rem;
       line-height: 1.5rem;
