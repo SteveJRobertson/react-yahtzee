@@ -24,6 +24,7 @@ export type DiePositions = [
 export type DiceNumbers = [number, number, number, number, number];
 
 export type DieState = {
+  count: number;
   id: string;
   hold: boolean;
   score: number;

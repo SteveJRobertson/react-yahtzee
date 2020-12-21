@@ -8,12 +8,13 @@ import { getRandomNumber } from "../../util";
 import { DieColumn, Dot, Face } from "./index";
 
 interface DieProps {
+  count: number;
   id: string;
   number?: number;
   width: number;
 }
 
-export const Die: React.FC<DieProps> = ({ id, number, width }) => {
+export const Die: React.FC<DieProps> = ({ count, id, number, width }) => {
   const {
     state: { diceDisabled, dice },
     toggleHoldDie,
@@ -39,7 +40,7 @@ export const Die: React.FC<DieProps> = ({ id, number, width }) => {
 
     setXPos(x + 1800);
     setYPos(y + 1800);
-  }, [number]);
+  }, [count, number]);
 
   const handleClick = () => {
     toggleHoldDie(id);
